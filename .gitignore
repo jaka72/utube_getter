@@ -1,0 +1,9 @@
+.DS_Store
+package-lock.js
+
+*.mp3
+*.mp4
+*.srt
+*.vtt
+*.txt
+
