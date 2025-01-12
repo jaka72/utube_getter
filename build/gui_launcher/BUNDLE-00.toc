@@ -1,0 +1,3 @@
+([('gui_launcher',
+   '/Users/jmb/Desktop/projects/utube_getter/dist/gui_launcher',
+   'EXECUTABLE')],)
