@@ -3,6 +3,7 @@ import os
 import sys
 import re
 import webvtt
+import shutil
 
 class Colors:
     PUR = '\033[95m'  # Purple
@@ -181,9 +182,26 @@ def extract_text_from_srt(srt_file_path, output_filename):
     with open(output_filename, 'w', encoding='utf-8') as output_file:
         output_file.write(pure_text)
 
-    print(f"Pure text has been saved to {output_filename}")
+    print(BLU + f"\nPure text has been saved to {output_filename}\n\n" + RES)
+
+    # Ask the user if they want to beautify the text
+    beautify = input("Would you like that ChatGPT beautifies the text? y/n: ").strip().lower()
+    if beautify == 'y':
+        beautify_text(output_filename)
 
 
+# Call the script in /openai_interaction to beautify the text
+def beautify_text(output_filename):
+    # Copy the file to the openai_interaction folder and rename it to original_text.txt
+    shutil.copy(output_filename, 'openai_interaction/original_text.txt')
+
+    # Call the sendTaskGetAnswer.py script with the appropriate arguments
+    subprocess.run([
+        'python3', 'openai_interaction/sendTaskGetAnswer.py',
+        '--input', 'openai_interaction/original_text.txt',
+        '--output', output_filename,
+        '--title', output_filename
+    ])
 
 
 if vtt_file:
